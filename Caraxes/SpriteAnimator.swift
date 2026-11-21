@@ -91,8 +91,8 @@ final class SpriteAnimator {
     private var layers: [(layer: CALayer, sprite: Sprite)] = []
 
     init(in view: NSView) {
-        guard let placeholder = NSImage(named: NSImage.Name("Caraxes")),
-              let image = placeholder.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+        guard let placeholder = Bundle.main.url(forResource: "caraxes", withExtension: "png"),
+              let image = Self.loadPNG(at: placeholder) else {
             preconditionFailure("The Caraxes placeholder asset is missing.")
         }
         let fallback = Sprite(image: image, isPlaceholder: true)

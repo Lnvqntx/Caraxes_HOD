@@ -55,10 +55,10 @@ final class PetWindow: NSPanel {
         let movement: NSEvent.EventTypeMask = [.mouseMoved, .leftMouseDragged,
                                                .rightMouseDragged, .otherMouseDragged]
         globalMonitor = NSEvent.addGlobalMonitorForEvents(matching: movement) { [weak self] _ in
-            MainActor.assumeIsolated { self?.updatePointer() }
+            DispatchQueue.main.async { [weak self] in self?.updatePointer() }
         }
         localMonitor = NSEvent.addLocalMonitorForEvents(matching: movement) { [weak self] event in
-            MainActor.assumeIsolated { self?.updatePointer() }
+            DispatchQueue.main.async { [weak self] in self?.updatePointer() }
             return event
         }
         display(state)
@@ -148,7 +148,7 @@ final class PetWindow: NSPanel {
         }
         guard frameTimer == nil else { return }
         let timer = Timer(timeInterval: 1.0 / 60, repeats: true) { [weak self] _ in
-            MainActor.assumeIsolated { self?.advanceFrame() }
+            DispatchQueue.main.async { [weak self] in self?.advanceFrame() }
         }
         frameTimer = timer
         RunLoop.main.add(timer, forMode: .common)

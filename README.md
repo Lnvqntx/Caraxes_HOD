@@ -1,10 +1,20 @@
 # Caraxes
 
-Caraxes is a native Swift and AppKit desktop pet for macOS 26 or later. It perches on the active window when one is available and takes short flights around the primary display on an empty desktop. Use **Caraxes → Quit Caraxes** in the menu bar to exit.
+Caraxes is a native Swift and AppKit desktop pet for macOS 12.0 or later. It perches on the active window when one is available and takes short flights around the primary display on an empty desktop. Use **Caraxes → Quit Caraxes** in the menu bar to exit.
 
 ## Build and run
 
-Open `Caraxes.xcodeproj` in Xcode 26 or later, select the **Caraxes** scheme and **My Mac**, then press **⌘R**. The project uses local ad hoc signing.
+With the Apple Command Line Tools and Swift 5.7.2 or later, run this from the repository root:
+
+```sh
+./scripts/build_app.sh && open Caraxes.app
+```
+
+The script builds a native release executable, assembles and ad-hoc signs `Caraxes.app`, and prints its path. The build has no package dependencies and uses the host architecture, so an Intel Mac builds an x86_64 app. SwiftPM keeps build intermediates in `.build/`.
+
+### Xcode
+
+Open `Caraxes.xcodeproj` in Xcode, select the **Caraxes** scheme and **My Mac**, then press **⌘R**. The project uses local ad hoc signing.
 
 ```sh
 xcodebuild -project Caraxes.xcodeproj -scheme Caraxes -configuration Debug build

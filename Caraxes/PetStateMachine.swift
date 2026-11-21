@@ -76,7 +76,7 @@ final class PetStateMachine {
 
         let generation = transitionGeneration
         let timer = Timer(timeInterval: delay, repeats: false) { [weak self] _ in
-            MainActor.assumeIsolated { self?.advance(generation: generation) }
+            DispatchQueue.main.async { [weak self] in self?.advance(generation: generation) }
         }
         transitionTimer = timer
         RunLoop.main.add(timer, forMode: .common)

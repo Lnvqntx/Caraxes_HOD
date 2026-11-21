@@ -1,5 +1,7 @@
 .DS_Store
 DerivedData/
+/.build/
+/Caraxes.app/
 build/
 xcuserdata/
 *.xcuserstate

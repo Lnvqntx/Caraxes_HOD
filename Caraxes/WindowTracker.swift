@@ -22,13 +22,13 @@ final class WindowTracker {
         workspaceObservers = notifications.map { name in
             workspace.notificationCenter.addObserver(forName: name, object: nil, queue: .main) {
                 [weak self] _ in
-                MainActor.assumeIsolated { self?.refresh() }
+                DispatchQueue.main.async { [weak self] in self?.refresh() }
             }
         }
         screensObserver = NotificationCenter.default.addObserver(
             forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: .main
         ) { [weak self] _ in
-            MainActor.assumeIsolated { self?.refresh() }
+            DispatchQueue.main.async { [weak self] in self?.refresh() }
         }
         refresh()
     }
@@ -54,7 +54,7 @@ final class WindowTracker {
         guard let interval else { return }
 
         let timer = Timer(timeInterval: interval, repeats: true) { [weak self] _ in
-            MainActor.assumeIsolated { self?.refresh() }
+            DispatchQueue.main.async { [weak self] in self?.refresh() }
         }
         timer.tolerance = interval / 10
         pollTimer = timer

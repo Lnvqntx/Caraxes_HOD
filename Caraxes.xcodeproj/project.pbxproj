@@ -11,7 +11,7 @@
         A00000000000000000000013 /* PetStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000003; };
         A00000000000000000000014 /* SpriteAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000004; };
         A00000000000000000000015 /* WindowTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000005; };
-        A00000000000000000000016 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000006; };
+        A00000000000000000000016 /* caraxes.png in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000006; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,7 +20,7 @@
         A00000000000000000000003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetStateMachine.swift; sourceTree = "<group>"; };
         A00000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteAnimator.swift; sourceTree = "<group>"; };
         A00000000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTracker.swift; sourceTree = "<group>"; };
-        A00000000000000000000006 = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+        A00000000000000000000006 = {isa = PBXFileReference; lastKnownFileType = image.png; path = Resources/caraxes.png; sourceTree = "<group>"; };
         A00000000000000000000007 = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
         A00000000000000000000008 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Caraxes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -133,7 +133,7 @@
             isa = XCBuildConfiguration;
             buildSettings = {
                 DEBUG_INFORMATION_FORMAT = dwarf;
-                MACOSX_DEPLOYMENT_TARGET = 26.0;
+                MACOSX_DEPLOYMENT_TARGET = 12.0;
                 ONLY_ACTIVE_ARCH = YES;
                 SDKROOT = macosx;
                 SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -144,7 +144,7 @@
             isa = XCBuildConfiguration;
             buildSettings = {
                 DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-                MACOSX_DEPLOYMENT_TARGET = 26.0;
+                MACOSX_DEPLOYMENT_TARGET = 12.0;
                 SDKROOT = macosx;
                 SWIFT_COMPILATION_MODE = wholemodule;
             };
@@ -161,7 +161,7 @@
                 MARKETING_VERSION = 0.1.0;
                 PRODUCT_BUNDLE_IDENTIFIER = com.lnvqntx.Caraxes;
                 PRODUCT_NAME = "$(TARGET_NAME)";
-                SWIFT_VERSION = 6.0;
+                SWIFT_VERSION = 5.0;
             };
             name = Debug;
         };
@@ -176,7 +176,7 @@
                 MARKETING_VERSION = 0.1.0;
                 PRODUCT_BUNDLE_IDENTIFIER = com.lnvqntx.Caraxes;
                 PRODUCT_NAME = "$(TARGET_NAME)";
-                SWIFT_VERSION = 6.0;
+                SWIFT_VERSION = 5.0;
             };
             name = Release;
         };

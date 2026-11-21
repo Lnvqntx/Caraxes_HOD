@@ -1,0 +1,207 @@
+// !$*UTF8*$!
+{
+    archiveVersion = 1;
+    classes = {};
+    objectVersion = 56;
+    objects = {
+
+/* Begin PBXBuildFile section */
+        A00000000000000000000011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000001; };
+        A00000000000000000000012 /* PetWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000002; };
+        A00000000000000000000013 /* PetStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000003; };
+        A00000000000000000000014 /* SpriteAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000004; };
+        A00000000000000000000015 /* WindowTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000005; };
+        A00000000000000000000016 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000006; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+        A00000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+        A00000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetWindow.swift; sourceTree = "<group>"; };
+        A00000000000000000000003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetStateMachine.swift; sourceTree = "<group>"; };
+        A00000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteAnimator.swift; sourceTree = "<group>"; };
+        A00000000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTracker.swift; sourceTree = "<group>"; };
+        A00000000000000000000006 = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+        A00000000000000000000007 = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+        A00000000000000000000008 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Caraxes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+        A00000000000000000000020 = {
+            isa = PBXGroup;
+            children = (
+                A00000000000000000000021,
+                A00000000000000000000022,
+            );
+            sourceTree = "<group>";
+        };
+        A00000000000000000000021 /* Caraxes */ = {
+            isa = PBXGroup;
+            children = (
+                A00000000000000000000001,
+                A00000000000000000000002,
+                A00000000000000000000003,
+                A00000000000000000000004,
+                A00000000000000000000005,
+                A00000000000000000000006,
+                A00000000000000000000007,
+            );
+            path = Caraxes;
+            sourceTree = "<group>";
+        };
+        A00000000000000000000022 /* Products */ = {
+            isa = PBXGroup;
+            children = (
+                A00000000000000000000008,
+            );
+            name = Products;
+            sourceTree = "<group>";
+        };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+        A00000000000000000000030 /* Caraxes */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = A00000000000000000000051;
+            buildPhases = (
+                A00000000000000000000040,
+                A00000000000000000000041,
+            );
+            buildRules = ();
+            dependencies = ();
+            name = Caraxes;
+            productName = Caraxes;
+            productReference = A00000000000000000000008;
+            productType = "com.apple.product-type.application";
+        };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+        A00000000000000000000031 /* Project object */ = {
+            isa = PBXProject;
+            attributes = {
+                LastUpgradeCheck = 2600;
+                TargetAttributes = {
+                    A00000000000000000000030 = { CreatedOnToolsVersion = 26.0; };
+                };
+            };
+            buildConfigurationList = A00000000000000000000050;
+            compatibilityVersion = "Xcode 14.0";
+            developmentRegion = en;
+            hasScannedForEncodings = 0;
+            knownRegions = (
+                en,
+                Base,
+            );
+            mainGroup = A00000000000000000000020;
+            productRefGroup = A00000000000000000000022;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (
+                A00000000000000000000030,
+            );
+        };
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+        A00000000000000000000040 /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                A00000000000000000000011,
+                A00000000000000000000012,
+                A00000000000000000000013,
+                A00000000000000000000014,
+                A00000000000000000000015,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+        A00000000000000000000041 /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                A00000000000000000000016,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+        A00000000000000000000060 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                DEBUG_INFORMATION_FORMAT = dwarf;
+                MACOSX_DEPLOYMENT_TARGET = 26.0;
+                ONLY_ACTIVE_ARCH = YES;
+                SDKROOT = macosx;
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            };
+            name = Debug;
+        };
+        A00000000000000000000061 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+                MACOSX_DEPLOYMENT_TARGET = 26.0;
+                SDKROOT = macosx;
+                SWIFT_COMPILATION_MODE = wholemodule;
+            };
+            name = Release;
+        };
+        A00000000000000000000062 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_IDENTITY = "-";
+                CODE_SIGN_STYLE = Manual;
+                CURRENT_PROJECT_VERSION = 1;
+                GENERATE_INFOPLIST_FILE = NO;
+                INFOPLIST_FILE = Caraxes/Info.plist;
+                MARKETING_VERSION = 0.1.0;
+                PRODUCT_BUNDLE_IDENTIFIER = com.lnvqntx.Caraxes;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 6.0;
+            };
+            name = Debug;
+        };
+        A00000000000000000000063 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_IDENTITY = "-";
+                CODE_SIGN_STYLE = Manual;
+                CURRENT_PROJECT_VERSION = 1;
+                GENERATE_INFOPLIST_FILE = NO;
+                INFOPLIST_FILE = Caraxes/Info.plist;
+                MARKETING_VERSION = 0.1.0;
+                PRODUCT_BUNDLE_IDENTIFIER = com.lnvqntx.Caraxes;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 6.0;
+            };
+            name = Release;
+        };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+        A00000000000000000000050 = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                A00000000000000000000060,
+                A00000000000000000000061,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        A00000000000000000000051 = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                A00000000000000000000062,
+                A00000000000000000000063,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+/* End XCConfigurationList section */
+    };
+    rootObject = A00000000000000000000031;
+}

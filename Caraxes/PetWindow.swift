@@ -7,9 +7,10 @@ final class PetWindow: NSPanel {
         let origin: CGPoint
         let destination: CGPoint
         let startedAt: CFTimeInterval
+        let duration: TimeInterval
 
         var progress: CGFloat {
-            min(1, CGFloat((CACurrentMediaTime() - startedAt) / PetStateMachine.flightDuration))
+            min(1, CGFloat((CACurrentMediaTime() - startedAt) / duration))
         }
     }
 
@@ -74,8 +75,10 @@ final class PetWindow: NSPanel {
         super.sendEvent(event)
     }
 
-    func display(_ state: PetState) {
-        if let flight, state == .sleep {
+    func display(_ state: PetState, target: WindowTracker.Target? = nil, perched: Bool = false) {
+        if perched, let target {
+            setFrameOrigin(perchOrigin(for: target, state: state))
+        } else if let flight, state == .sleep {
             setFrameOrigin(flight.destination)
         }
         flight = nil
@@ -83,12 +86,14 @@ final class PetWindow: NSPanel {
 
         if state == .fly {
             let origin = frame.origin
-            let destination = randomDestination()
+            let destination = target.map { perchOrigin(for: $0, state: .perch) } ?? randomDestination()
+            let duration = target == nil ? PetStateMachine.flightDuration : PetStateMachine.perchFlightDuration
             let dx = destination.x - origin.x
             let dy = destination.y - origin.y
             let slope = atan2(dy, max(abs(dx), 1))
             let tilt = min(0.17, max(-0.17, slope)) * (dx < 0 ? -1 : 1)
-            flight = Flight(origin: origin, destination: destination, startedAt: CACurrentMediaTime())
+            flight = Flight(origin: origin, destination: destination,
+                            startedAt: CACurrentMediaTime(), duration: duration)
             animator.display(state, facingLeft: dx < 0, tilt: tilt)
         } else {
             animator.display(state)
@@ -97,6 +102,17 @@ final class PetWindow: NSPanel {
         // Flush the state change before sampling the new presentation layers.
         CATransaction.flush()
         updatePointer(usePresentation: false)
+    }
+
+    func follow(_ target: WindowTracker.Target) {
+        let origin = perchOrigin(for: target, state: state)
+        guard origin != frame.origin else { return }
+        setFrameOrigin(origin)
+        updatePointer()
+    }
+
+    private func perchOrigin(for target: WindowTracker.Target, state: PetState) -> CGPoint {
+        WindowTracker.perchOrigin(for: target, sprite: animator.perchFootprint(for: state))
     }
 
     func stopMonitoringPointer() {
@@ -123,7 +139,8 @@ final class PetWindow: NSPanel {
             ignoresMouseEvents = !visible
         }
 
-        let needsFrames = state == .fly || (state == .idle && animator.movementBounds.contains(point))
+        let needsFrames = state == .fly ||
+            ((state == .idle || state == .perch) && animator.movementBounds.contains(point))
         guard needsFrames else {
             frameTimer?.invalidate()
             frameTimer = nil

@@ -31,13 +31,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         let window = PetWindow()
         petWindow = window
+        window.onClick = { [weak pet = self.pet] in pet?.handleClick() }
         pet.onChange = { [weak window] state in
             window?.display(state)
         }
         window.showPet(state: pet.state)
+        pet.start()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
+        pet.stop()
         petWindow?.stopMonitoringPointer()
     }
 }

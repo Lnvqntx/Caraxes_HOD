@@ -3,3 +3,12 @@ DerivedData/
 build/
 xcuserdata/
 *.xcuserstate
+
+# Private runtime sprite files
+sprites/
+sleep_rest.png
+fly_side.png
+fly_diag_b.png
+fly_vertical.png
+roar_front.png
+head_roar.png

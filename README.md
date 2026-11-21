@@ -1,6 +1,6 @@
 # Caraxes
 
-Caraxes is a native Swift and AppKit desktop pet for macOS 26 or later. It spends most of its time resting and takes short flights around the primary display. Use **Caraxes → Quit Caraxes** in the menu bar to exit.
+Caraxes is a native Swift and AppKit desktop pet for macOS 26 or later. It perches on the active window when one is available and takes short flights around the primary display on an empty desktop. Use **Caraxes → Quit Caraxes** in the menu bar to exit.
 
 ## Build and run
 
@@ -31,12 +31,13 @@ Use PNGs with transparent backgrounds for sprite-shaped mouse interaction. Relau
 
 ## Behavior
 
-- Caraxes bobs for 5–15 seconds, flies to a random position on the primary display in about 2.4 seconds, then sleeps for 30–120 seconds.
+- With an eligible foreground window, Caraxes flies to its top edge or sits just inside the top-right corner when space above is limited. It follows the window, alternates between 5–15 seconds of idle and 30–120 seconds of sleep, and takes a short flight to a different foreground window.
+- With no eligible window or a full-screen window, Caraxes bobs for 5–15 seconds, flies to a random position on the primary display in about 2.4 seconds, then sleeps for 30–120 seconds.
 - During a flight, the poses alternate about every 0.4 seconds. The animator assumes the side pose faces right and the diagonal pose faces left, and mirrors them to match travel. The body tilts slightly along the direction of travel.
 - A click on the visible sleeping sprite wakes it. A click during idle or flight triggers a 1.5-second flame effect and returns Caraxes to idle. Transparent pixels pass clicks through to the app underneath.
-- Core Animation handles the sleeping breath and Zzz effects. The wake-up timer is the only app timer active during sleep.
+- Core Animation handles the sleeping breath and Zzz effects. Sleep uses a wake-up timer and, when perched, a geometry check around once a second. Awake perched tracking checks around four times a second.
 
-AppKit owns the overlay in `PetWindow`. `PetStateMachine` schedules rest and activity, `SpriteAnimator` loads and animates poses, and `WindowTracker` remains a stub.
+AppKit owns the overlay in `PetWindow`. `PetStateMachine` schedules rest and activity, `SpriteAnimator` loads and animates poses, and `WindowTracker` estimates the main window from front-to-back, on-screen layer-zero bounds for the frontmost app. Full-screen detection compares the window bounds to display bounds. Tracking uses window identity and geometry, with no window titles or Screen Recording permission.
 
 ## Review on macOS
 
@@ -44,3 +45,6 @@ AppKit owns the overlay in `PetWindow`. `PetStateMachine` schedules rest and act
 2. Observe one full cycle. Confirm the flight remains on the primary display, the pose flips in both directions, and Caraxes stops moving when it lands.
 3. Click through a transparent gap, click to wake the sleeping pet, and click again to trigger fire. Check the flame origin against the actual `roar_front` artwork. Its default anchor is 50% across and 58% up from the image's lower-left corner.
 4. Check sleeping CPU in Activity Monitor. Confirm the overlay stays visible when switching Spaces and **Quit Caraxes** removes both the pet and menu item.
+5. Activate a window at least 300 points wide. Drag it and switch between two windows of the same app. Check that Caraxes follows while idle and asleep and flies to the newly active window.
+6. Move a window to the top of a display, then to displays positioned to the left of and above the primary display. Check top-edge and inside-corner placement.
+7. Minimize the active window, enter and leave full screen, and switch Spaces. When no window qualifies, check that desktop roaming resumes.

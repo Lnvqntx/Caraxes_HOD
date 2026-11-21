@@ -20,6 +20,7 @@ final class SpriteAnimator {
         let image: CGImage
         let isPlaceholder: Bool
         let alpha: [UInt8]
+        let visibleBounds: CGRect
 
         init(image: CGImage, isPlaceholder: Bool = false) {
             self.image = image
@@ -39,7 +40,40 @@ final class SpriteAnimator {
                 context.draw(image, in: CGRect(x: 0, y: 0,
                                                width: CGFloat(width), height: CGFloat(height)))
             }
-            alpha = stride(from: 3, to: rgba.count, by: 4).map { rgba[$0] }
+            var mask = [UInt8]()
+            mask.reserveCapacity(width * height)
+            var minX = width
+            var minY = height
+            var maxX = -1
+            var maxY = -1
+            for (index, offset) in stride(from: 3, to: rgba.count, by: 4).enumerated() {
+                let value = rgba[offset]
+                mask.append(value)
+                // Ignore nearly transparent pixels when placing the feet on the edge.
+                if value >= 32 {
+                    let x = index % width
+                    let y = height - 1 - index / width
+                    minX = min(minX, x)
+                    minY = min(minY, y)
+                    maxX = max(maxX, x)
+                    maxY = max(maxY, y)
+                }
+            }
+            alpha = mask
+            if maxX >= minX, maxY >= minY {
+                visibleBounds = CGRect(x: CGFloat(minX) / CGFloat(width),
+                                       y: CGFloat(minY) / CGFloat(height),
+                                       width: CGFloat(maxX - minX + 1) / CGFloat(width),
+                                       height: CGFloat(maxY - minY + 1) / CGFloat(height))
+            } else {
+                visibleBounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+            }
+        }
+
+        var displaySize: CGSize {
+            let aspect = CGFloat(image.width) / CGFloat(image.height)
+            let width = min(220, 230 * aspect)
+            return CGSize(width: width, height: width / aspect)
         }
 
         func containsVisiblePixel(at point: CGPoint, in bounds: CGRect) -> Bool {
@@ -98,6 +132,15 @@ final class SpriteAnimator {
         return frame.union(frame.offsetBy(dx: 0, dy: 6))
     }
 
+    func perchFootprint(for state: PetState) -> CGRect {
+        let sprite = sprites[state == .sleep ? .sleepRest : .roarFront]!
+        let size = sprite.displaySize
+        return CGRect(x: body.position.x + (sprite.visibleBounds.minX - 0.5) * size.width,
+                      y: body.position.y + (sprite.visibleBounds.minY - 0.5) * size.height,
+                      width: sprite.visibleBounds.width * size.width,
+                      height: sprite.visibleBounds.height * size.height)
+    }
+
     func display(_ state: PetState, facingLeft: Bool = false, tilt: CGFloat = 0) {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
@@ -116,9 +159,8 @@ final class SpriteAnimator {
             addSleepBubbles(above: layer)
         case .idle, .perch:
             addPose(.roarFront)
-            if state == .idle {
-                oscillate("position.y", from: body.position.y, to: body.position.y + 6, duration: 1.3)
-            }
+            let bobHeight: CGFloat = state == .perch ? 2 : 6
+            oscillate("position.y", from: body.position.y, to: body.position.y + bobHeight, duration: 1.3)
         case .fly:
             let side = addPose(.flySide, facingLeft: facingLeft)
             let diagonal = addPose(.flyDiagonal, facingLeft: facingLeft)
@@ -150,12 +192,9 @@ final class SpriteAnimator {
     @discardableResult
     private func addPose(_ pose: Pose, facingLeft: Bool? = nil) -> CALayer {
         let sprite = sprites[pose]!
-        let image = sprite.image
-        let aspect = CGFloat(image.width) / CGFloat(image.height)
-        let width = min(220, 230 * aspect)
         let layer = CALayer()
-        layer.bounds = CGRect(x: 0, y: 0, width: width, height: width / aspect)
-        layer.contents = image
+        layer.bounds = CGRect(origin: .zero, size: sprite.displaySize)
+        layer.contents = sprite.image
         layer.contentsGravity = .resize
         if let facingLeft, facingLeft != (!sprite.isPlaceholder && pose.facesLeft) {
             layer.setAffineTransform(CGAffineTransform(scaleX: -1, y: 1))

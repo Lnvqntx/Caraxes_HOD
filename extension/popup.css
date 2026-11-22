@@ -1,0 +1,39 @@
+:root {
+  color-scheme: light dark;
+  font: 14px system-ui, sans-serif;
+  accent-color: #ad3349;
+}
+
+body {
+  width: 260px;
+  margin: 0;
+  padding: 16px;
+}
+
+h1 { margin: 0 0 14px; font-size: 20px; }
+.row { display: flex; justify-content: space-between; align-items: center; }
+.size, form { margin-top: 14px; }
+input[type="range"], textarea { width: 100%; box-sizing: border-box; }
+
+textarea {
+  display: block;
+  margin-top: 6px;
+  padding: 8px;
+  resize: vertical;
+  font: inherit;
+  border-radius: 6px;
+}
+
+p { margin: 6px 0; font-size: 12px; }
+
+button {
+  padding: 6px 11px;
+  font: inherit;
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  background: #8f263c;
+  cursor: pointer;
+}
+
+#status:empty { display: none; }

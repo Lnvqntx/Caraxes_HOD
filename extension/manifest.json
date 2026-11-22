@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Caraxes",
+  "version": "1.0.0",
+  "description": "A little dragon that perches at the top of your browser tabs.",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "Caraxes settings",
+    "default_popup": "popup.html"
+  },
+  "chrome_url_overrides": { "newtab": "newtab.html" },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["settings.js", "pet.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "resources": [
+        "sprites/sleep_rest.png",
+        "sprites/fly_side.png",
+        "sprites/fly_diag_b.png",
+        "sprites/fly_vertical.png",
+        "sprites/roar_front.png",
+        "sprites/head_roar.png"
+      ]
+    }
+  ]
+}

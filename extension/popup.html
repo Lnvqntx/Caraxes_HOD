@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caraxes settings</title>
+  <link rel="stylesheet" href="popup.css">
+  <script src="settings.js" defer></script>
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <h1>Caraxes</h1>
+  <label class="row">
+    Show Caraxes
+    <input id="enabled" type="checkbox" disabled>
+  </label>
+  <div class="size">
+    <div class="row">
+      <label for="size">Size</label>
+      <output id="size-label" for="size">160 px</output>
+    </div>
+    <input id="size" type="range" min="80" max="280" value="160" disabled>
+  </div>
+  <form id="sites-form">
+    <label for="sites">Disabled sites</label>
+    <textarea id="sites" rows="4" placeholder="example.com" aria-describedby="sites-help" disabled></textarea>
+    <p id="sites-help">One domain per line. Subdomains are included.</p>
+    <button id="save" type="submit" disabled>Save sites</button>
+  </form>
+  <p id="status" role="status"></p>
+</body>
+</html>
